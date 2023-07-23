@@ -124,10 +124,10 @@ export class Room extends EventEmitter {
     }
     handleSocket(socketUrl){
       const self = this
-      socketUrl.url = self.url
+      socketUrl.wsUrl = self.url
       socketUrl.onopen = function(e){
         console.log(e)
-        self.sockets[socketUrl.url] = socketUrl
+        self.sockets[socketUrl.wsUrl] = socketUrl
         socketUrl.send(JSON.stringify({
           action: self.trackerAction,
           info_hash: hex2bin(self.hash),
@@ -316,7 +316,7 @@ export class Room extends EventEmitter {
         socketUrl.onerror = undefined
         socketUrl.onmessage = undefined
         socketUrl.onclose = undefined
-        delete self.sockets[socketUrl.url]
+        delete self.sockets[socketUrl.wsUrl]
       }
     }
     // socketMessageEvent(e){}
