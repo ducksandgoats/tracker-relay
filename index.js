@@ -17,11 +17,10 @@ export class Room extends EventEmitter {
       this.urls = opts.trackers || ['wss://fediverse.tv/tracker/socket','wss://tracker.files.fm:7073/announce','wss://tracker.openwebtorrent.com']
       if (!this.urls.length) {
           throw new Error('urls is empty')
-      } else {
-        this.urls = this.urls.map((data) => {return data + '/' + this.hash})
       }
       this.url = this.urls.pop()
       this.hash = SHA1(room).toString(enc.Hex)
+      this.urls = this.urls.map((data) => {return data + '/' + this.hash})
       this.maxLimit = typeof(maxLimit) === 'number' ? maxLimit : 5
       this.stayLimit = typeof(stayLimit) === 'boolean' ? stayLimit : false
       this.signalCount = 0
